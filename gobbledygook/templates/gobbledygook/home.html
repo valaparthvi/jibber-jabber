@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Jibber-Jabber</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+			function copyIt(element){
+				var $temp = $("<input>	");
+				$("body").append($temp);
+				$temp.val($(element).text()).select();
+				document.execCommand("copy");
+				$temp.remove();
+			}
+		</script>
+	</head>
+	<body>
+		<form method="POST">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Generate</button>
+		</form>
+		{% if paragraph %}
+		<div>
+			<p>Here you go!</p>
+			<p id="prg">{{ paragraph }}</p>
+			<button onclick="copyIt('#prg')">Copy to Clipboard</button>
+		</div>
+		{% endif %}
+	</body>
+</html>
